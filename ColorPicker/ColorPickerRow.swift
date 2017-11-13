@@ -254,8 +254,22 @@ public class _ColorPickerRow: Row<ColorPickerCell> {
             updateCell()
         }
     }
-
+    
     open var isCircular = false {
+        didSet {
+            guard let _ = section?.form else { return }
+            updateCell()
+        }
+    }
+    
+    open var titleColor = UIColor.red {
+        didSet {
+            guard let _ = section?.form else { return }
+            updateCell()
+        }
+    }
+    
+    open var titleFont = UIFont.systemFont(ofSize: 11.0) {
         didSet {
             guard let _ = section?.form else { return }
             updateCell()
@@ -264,6 +278,8 @@ public class _ColorPickerRow: Row<ColorPickerCell> {
     
     override open func updateCell() {
         cell.titleLabel.text = title
+        cell.titleLabel.textColor = titleColor
+        cell.titleLabel.font = titleFont
         cell.height = { return CGFloat(145) }
         cell.isCircular = isCircular
         cell.showsPaletteNames = showsPaletteNames
