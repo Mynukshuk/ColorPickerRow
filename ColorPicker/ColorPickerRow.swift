@@ -32,7 +32,7 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
             }
         }
     }
-
+    
     public var palettes : [ColorPalette] = [iOS().palette,
                                             Solarised().palette,
                                             WP8().palette,
@@ -43,10 +43,10 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
             colorsView.reloadData()
         }
     }
-
+    
     private var dynamicConstraints = [NSLayoutConstraint]()
     private var notificationObserver : NSObjectProtocol?
-
+    
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 6, right: 10)
@@ -56,16 +56,14 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
         layout.minimumInteritemSpacing = 2.0
         layout.minimumLineSpacing = 2.0
         layout.scrollDirection = .horizontal
-
+        
         titleLabel = UILabel()
         swatchView = ColorSwatchView()
         colorsView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.metropolis(ofSize: 16, weight: .medium)
-        titleLabel.textColor = UIColor(hex: 0x040B1A)
         
         swatchView.translatesAutoresizingMaskIntoConstraints = false
         swatchView.isSelected = true
@@ -95,7 +93,7 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
     
     open override func setup() {
         super.setup()
-
+        
         selectionStyle = .none
         layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         colorsView.backgroundColor = backgroundColor
@@ -115,14 +113,14 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
     }
     
     open override func didSelect() {
-
+        
     }
     
     open override func updateConstraints(){
         customConstraints()
         super.updateConstraints()
     }
-
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -135,9 +133,9 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
         let views : [String: AnyObject] = ["titleLabel" : titleLabel,
                                            "colorsView": colorsView,
                                            "swatchView": swatchView]
-
+        
         contentView.removeConstraints(dynamicConstraints)
-
+        
         dynamicConstraints = []
         dynamicConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-6-[titleLabel]-4-[colorsView(100)]|", options: [], metrics: nil, views: views))
         dynamicConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[swatchView(30)]", options: [], metrics: nil, views: views))
@@ -145,8 +143,8 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
         dynamicConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:|-[colorsView]-|", options: [], metrics: nil, views: views))
         contentView.addConstraints(dynamicConstraints)
     }
-
-
+    
+    
     public func indexPath(forColor color : UIColor?) -> IndexPath? {
         if let color = color {
             let colorHexString = color.hexString()
@@ -168,7 +166,7 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
     
     public func colorSpec(forColor color: UIColor?) -> (palette: ColorPalette, color: ColorSpec)? {
         if let color = color,
-           let indexPath = indexPath(forColor: color) {
+            let indexPath = indexPath(forColor: color) {
             let palette = palettes[indexPath.section]
             let colorSpec = palette.palette[indexPath.row]
             
@@ -187,7 +185,7 @@ public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDe
         baseRow.baseValue = newColor
         swatchView.color = newColor
     }
-
+    
     //  UICollectionViewDataSource
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -287,7 +285,7 @@ public class _ColorPickerRow: Row<ColorPickerCell> {
         
         if value != cell.swatchView.color {
             cell.swatchView.color = value
-        
+            
             //  Add code to highlight the selected cell
             if value != nil, let indexPath = cell.indexPath(forColor: value!) {
                 cell.colorsView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
@@ -307,3 +305,4 @@ public final class ColorPickerRow: _ColorPickerRow, RowType {
         super.init(tag: tag)
     }
 }
+
