@@ -10,7 +10,8 @@ import UIKit
 import Eureka
 import UIColor_Hex_Swift
 
-public class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
+
+public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var titleLabel : UILabel
     var swatchView : ColorSwatchView
@@ -63,8 +64,9 @@ public class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDelegate
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-
+        titleLabel.font = UIFont.metropolis(ofSize: 16, weight: .medium)
+        titleLabel.textColor = UIColor(hex: 0x040B1A)
+        
         swatchView.translatesAutoresizingMaskIntoConstraints = false
         swatchView.isSelected = true
         
