@@ -10,8 +10,7 @@ import UIKit
 import Eureka
 import UIColor_Hex_Swift
 
-
-public final class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
+public class ColorPickerCell : Cell<UIColor>, CellType, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var titleLabel : UILabel
     var swatchView : ColorSwatchView
